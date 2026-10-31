@@ -6,10 +6,12 @@ import { ErrorMessage } from './components/ErrorMessage'
 import { EmptyState } from './components/EmptyState'
 import { Filters } from './components/Filters'
 import { NoResults } from './components/NoResults'
+import { useCartCount } from './store/cartStore'
 
 function App() {
   const { data: products = [], isPending, isError, error, refetch } = useProducts()
   const filters = useProductFilters(products)
+  const cartCount = useCartCount()
 
   // Pick what to show based on the query's state.
   function renderContent() {
@@ -33,7 +35,7 @@ function App() {
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
           <h1 className="text-xl font-bold">ShopCart</h1>
-          <span className="rounded-full bg-blue-600 px-3 py-1 text-sm text-white">Cart (0)</span>
+          <span className="rounded-full bg-blue-600 px-3 py-1 text-sm text-white">Cart ({cartCount})</span>
         </div>
       </header>
       <main className="mx-auto max-w-7xl p-4">{renderContent()}</main>

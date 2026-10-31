@@ -1,10 +1,13 @@
 import type { Product } from '../schemas/product'
+import { useCartStore } from '../store/cartStore'
 
 type ProductCardProps = {
   product: Product
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const addItem = useCartStore((state) => state.addItem)
+
   return (
     <article className="flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <img
@@ -19,9 +22,9 @@ export function ProductCard({ product }: ProductCardProps) {
         <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
         <span className="text-sm text-gray-600">★ {product.rating.toFixed(1)}</span>
       </div>
-      {/* Placeholder: cart logic comes in a later step */}
       <button
         type="button"
+        onClick={() => addItem(product)}
         className="mt-auto w-full rounded-md bg-blue-600 py-2 text-white hover:bg-blue-700"
       >
         Add to Cart
