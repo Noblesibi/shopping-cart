@@ -4,10 +4,11 @@ import { CartSummary } from './CartSummary'
 
 type CartPanelProps = {
   onClose: () => void
+  onCheckout: () => void
 }
 
 // Drawer from the right: full width on mobile, max-w-md on larger screens.
-export function CartPanel({ onClose }: CartPanelProps) {
+export function CartPanel({ onClose, onCheckout }: CartPanelProps) {
   const items = useCartStore((state) => state.items)
   const clearCart = useCartStore((state) => state.clearCart)
 
@@ -34,7 +35,7 @@ export function CartPanel({ onClose }: CartPanelProps) {
                   <CartItemRow key={item.id} item={item} />
                 ))}
               </ul>
-              <CartSummary />
+              <CartSummary onCheckout={onCheckout} />
             </div>
             <div className="border-t border-gray-200 p-4">
               <button
