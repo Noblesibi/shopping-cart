@@ -1,5 +1,6 @@
 import { useCartStore } from '../store/cartStore'
 import { CartItemRow } from './CartItemRow'
+import { CartSummary } from './CartSummary'
 
 type CartPanelProps = {
   onClose: () => void
@@ -27,11 +28,14 @@ export function CartPanel({ onClose }: CartPanelProps) {
           <p className="p-4 text-center text-gray-600">Your cart is empty.</p>
         ) : (
           <>
-            <ul className="flex-1 overflow-y-auto px-4">
-              {items.map((item) => (
-                <CartItemRow key={item.id} item={item} />
-              ))}
-            </ul>
+            <div className="flex-1 overflow-y-auto">
+              <ul className="px-4">
+                {items.map((item) => (
+                  <CartItemRow key={item.id} item={item} />
+                ))}
+              </ul>
+              <CartSummary />
+            </div>
             <div className="border-t border-gray-200 p-4">
               <button
                 type="button"
