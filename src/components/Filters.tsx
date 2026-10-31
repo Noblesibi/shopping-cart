@@ -1,10 +1,9 @@
 import type { useProductFilters } from '../hooks/useProductFilters'
+import { buttonSecondary, input as inputClass } from '../styles'
 
 type FiltersProps = {
   filters: ReturnType<typeof useProductFilters>
 }
-
-const inputClass = 'w-full rounded-md border border-gray-300 bg-white px-3 py-2'
 
 export function Filters({ filters }: FiltersProps) {
   return (
@@ -53,7 +52,7 @@ export function Filters({ filters }: FiltersProps) {
       <button
         type="button"
         onClick={filters.clearFilters}
-        className="rounded-md border border-gray-300 bg-white px-3 py-2 hover:bg-gray-100"
+        className={buttonSecondary}
       >
         Clear all filters
       </button>

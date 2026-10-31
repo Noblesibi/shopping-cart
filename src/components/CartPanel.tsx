@@ -1,4 +1,5 @@
 import { useCartStore } from '../store/cartStore'
+import { buttonDanger } from '../styles'
 import { CartItemRow } from './CartItemRow'
 import { CartSummary } from './CartSummary'
 
@@ -17,7 +18,12 @@ export function CartPanel({ onClose, onCheckout }: CartPanelProps) {
       {/* Dark backdrop; clicking it closes the cart */}
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-xl">
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-xl"
+      >
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-lg font-bold">Your Cart</h2>
           <button type="button" onClick={onClose} className="text-2xl" aria-label="Close cart">
@@ -38,11 +44,7 @@ export function CartPanel({ onClose, onCheckout }: CartPanelProps) {
               <CartSummary onCheckout={onCheckout} />
             </div>
             <div className="border-t border-gray-200 p-4">
-              <button
-                type="button"
-                onClick={clearCart}
-                className="w-full rounded-md border border-red-600 py-2 text-red-600 hover:bg-red-50"
-              >
+              <button type="button" onClick={clearCart} className={`${buttonDanger} w-full`}>
                 Clear Cart
               </button>
             </div>

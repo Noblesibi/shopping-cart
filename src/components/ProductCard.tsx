@@ -1,5 +1,6 @@
 import type { Product } from '../schemas/product'
 import { useCartStore } from '../store/cartStore'
+import { buttonPrimary, card } from '../styles'
 
 type ProductCardProps = {
   product: Product
@@ -9,7 +10,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem)
 
   return (
-    <article className="flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <article className={`${card} flex flex-col`}>
       <img
         src={product.thumbnail}
         alt={product.title}
@@ -25,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <button
         type="button"
         onClick={() => addItem(product)}
-        className="mt-auto w-full rounded-md bg-blue-600 py-2 text-white hover:bg-blue-700"
+        className={`${buttonPrimary} mt-auto w-full`}
       >
         Add to Cart
       </button>
