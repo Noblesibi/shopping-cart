@@ -1,18 +1,31 @@
 import { useProducts } from './hooks/useProducts'
+import { useProductFilters } from './hooks/useProductFilters'
 import { ProductGrid } from './components/ProductGrid'
 import { LoadingState } from './components/LoadingState'
 import { ErrorMessage } from './components/ErrorMessage'
 import { EmptyState } from './components/EmptyState'
+import { Filters } from './components/Filters'
+import { NoResults } from './components/NoResults'
 
 function App() {
-  const { data: products, isPending, isError, error, refetch } = useProducts()
+  const { data: products = [], isPending, isError, error, refetch } = useProducts()
+  const filters = useProductFilters(products)
 
   // Pick what to show based on the query's state.
   function renderContent() {
     if (isPending) return <LoadingState />
     if (isError) return <ErrorMessage message={error.message} onRetry={() => refetch()} />
     if (products.length === 0) return <EmptyState />
-    return <ProductGrid products={products} />
+    return (
+      <>
+        <Filters filters={filters} />
+        {filters.filteredProducts.length === 0 ? (
+          <NoResults onClear={filters.clearFilters} />
+        ) : (
+          <ProductGrid products={filters.filteredProducts} />
+        )}
+      </>
+    )
   }
 
   return (
